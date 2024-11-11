@@ -15,7 +15,7 @@ class CampaignRepository implements CampaignRepositoryInterface
        return Campaign::findOrFail($id);
     }
 
-    public function store(array $data) : mixed {
+    public function store(array $data): mixed {
       return Campaign::create($data);
 
     }
@@ -25,6 +25,6 @@ class CampaignRepository implements CampaignRepositoryInterface
     }
     
     public function delete($id): mixed{
-       Campaign::destroy($id);
+       return Campaign::destroy($id);
     }
 }

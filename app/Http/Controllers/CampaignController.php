@@ -31,14 +31,6 @@ class CampaignController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create() : JsonResponse
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCampaignRequest $request) : JsonResponse
@@ -62,14 +54,6 @@ class CampaignController extends Controller
         $campaign = $this->campaignRepository->getById($id);
 
         return ApiResponseClass::sendResponse(new CampaignResource($campaign),'',200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Campaign $campaign) : JsonResponse
-    {
-        //
     }
 
     /**
