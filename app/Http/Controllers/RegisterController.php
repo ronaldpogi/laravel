@@ -26,13 +26,16 @@ class RegisterController extends Controller
             'c_password' => 'required|same:password',
         ]);
    
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ApiResponseClass::sendResponse($validator->errors(),'Validation Error.', 404);
         }
    
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        
+        // CREATE
         $user = User::create($input);
+
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
         $success['name'] =  $user->name;
    
@@ -46,14 +49,13 @@ class RegisterController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) { 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
             $success['name'] =  $user->name;
    
             return ApiResponseClass::sendResponse($success,'User login successfully.', 200);
-        } 
-        else{ 
+        } else { 
             return ApiResponseClass::sendResponse('Unauthorized', 'Unauthorised', 404);
         } 
     }
